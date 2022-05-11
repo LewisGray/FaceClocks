@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block backButton %}
+<a href="{{ url_for('adminTools') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container py-5">
+          <h1 class="jumbotron-heading">Attendee Management&nbsp;&nbsp;</h1>
+        </div>
+        <div class="album py-5 bg-light">
+          <p class="border-middlePage">
+              <a class="btn btn-primary  btn-sm btn-block" href="{{ url_for('registerAttendee') }}">Add a new Attendee</a>
+            <!-- <div class="card card-body"> -->
+             
+              <table class="table table-sm table-hover">
+                <thead>
+                  <th>AttendeeID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Admin?</th>
+                  <th>Manage</th>
+              </thead>
+              <tbody>
+                {% for attendee in attendeeList %}
+                <tr>
+                  <td>{{attendee.attendeeID}}</td>
+                  <td>{{attendee.firstName}}</td>
+                  <td>{{attendee.lastName}}</td>
+                  <td>{{attendee.isAdmin}}</td>
+                  <td><a class="btn btn-sm btn-outline-info" href="{{ url_for('editAttendee',attendeeID=attendee.attendeeID) }}">Manage</a></td>
+                  
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            <!-- </div>  -->
+        </div>
+      </section>
+    
+
+        
+    </main>
+    {% endblock %}
+    

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block backButton %}
+<a href="{{ url_for('adminTools') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container py-5">
+          <h1 class="jumbotron-heading">Cases to resolve:&nbsp;&nbsp;</h1>
+        </div>
+        <div class="album py-5 bg-light">
+          <p class="border-middlePage">
+            <!-- <div class="card card-body"> -->
+             
+              <table class="table table-sm table-hover">
+                <thead>
+                  <th>CaseID</th>
+                  <th>Resolve</th>
+              </thead>
+              <tbody>
+                {% for case in caseList %}
+                <tr>
+                  <td>{{case.caseID}}</td>
+                  
+                  <td><a class="btn btn-sm btn-outline-info" href="{{ url_for('resolveCase',caseID=case.caseID) }}">Resolve</a></td>
+                  
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            <!-- </div>  -->
+        </div>
+      </section>
+    
+
+        
+    </main>
+    {% endblock %}
+    

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}View Reports{% endblock %}
+{% block backButton %}
+<a href="{{ url_for('adminTools') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('viewPresent')}}">View present attendees <span class="sr-only">(current)</span></a>
+      </li>
+      <li>
+        <h3> Select a date range </h3>
+<form action="" method='POST' name="myform">
+    {{ form.csrt_token }}
+    {{ form.date.label }} {{form.date(class='datepicker')}} {{form.hidden_tag()}}
+    <p>
+    {{form.submit()}}
+    </p>
+</form>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          View Sign-ins for attendee:
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for eachAttendee in attendeeList %}
+          <a class="dropdown-item"  href="{{ url_for('viewAttendee',attendeeID=eachAttendee.attendeeID)}}">{{eachAttendee.firstName + " "+ eachAttendee.lastName }} </a>
+          <div class="dropdown-divider"></div>
+          {% endfor %}
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+<script>
+$('.datepicker').datepicker();
+</script>
+
+{% endblock %}

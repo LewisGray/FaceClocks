@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}success{% endblock %}
+{% block backButton %}
+<a href="{{ url_for('startScreen') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+
+<br>Hey {{name}},
+<br>Your {{action}} has been completed!
+
+{% endblock %}

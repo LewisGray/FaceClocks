@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Admin Tools{% endblock %}
+{% block backButton %}
+<a href="{{ url_for('mainMenu') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+
+<h1 class="w3-jumbo w3-animate-top">What would you like to do?</h1>
+  <ul style="list-style-type:none;">
+  <form method="POST" action="">
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4"></legend>
+        
+        <div class="form-group">
+          <input type="submit" name="Manage Attendees" value="Manage Attendees">
+        </div>
+  
+        <div class="form-group">
+          <input type="submit" name="View Reports" value="View_Reports">
+      </div>
+  
+      <div class="form-group">
+        <input type="submit" name="Review Pictures" value="Review_Pictures">
+      </div>
+  
+    </fieldset>
+  
+  </form>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block backButton %}
+<a href="{{ url_for('adminTools') }}">
+  <img src="/static/backButton.png" alt="Click here to return to the previous page">
+</a>
+{% endblock %}
+{% block content %}
+  
+  <h1>CASE {{case.caseID}}</h1>
+  <img src="{{ case.image }}" class="img-thumbnail" alt="Error" width="304" height="236">
+  <p>Date: {{case.date}}</p>
+  <p>Time: {{case.time}}</p>
+  <p>Action: {{case.action}}</p>
+  <p>
+    <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.attendee.label(class="form-control-label") }}
+      {% if form.attendee.errors %}
+          {{ form.attendee(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.attendee.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.attendee(class="form-control form-control-lg") }}
+      {% endif %}
+  </div>
+
+
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">Resolve case</button>
+  </div>
+  </form>
+  </p>
+  
+{% endblock %}

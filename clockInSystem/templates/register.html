@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block backButton %}
+<a href="{{ url_for('attendeeManagement') }}">
+    <img src="/static/backButton.png" alt="Click here to return to the previous page">
+  </a>
+{% endblock %}
+{% block content %}
+
+<div class="content-section">
+  <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+          <legend class="border-bottom mb-4">{{ legend }}</legend>
+          <div class="form-group">
+              {{ form.firstName.label(class="form-control-label") }}
+
+              {% if form.firstName.errors %}
+                  {{ form.firstName(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.firstName.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.firstName(class="form-control form-control-lg") }}
+              {% endif %}
+          </div>
+          <div class="form-group">
+              {{ form.lastName.label(class="form-control-label") }}
+              {% if form.lastName.errors %}
+                  {{ form.lastName(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.lastName.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.lastName(class="form-control form-control-lg") }}
+              {% endif %}
+          </div>
+          {% if supers == "True" %}
+          <div class="form-group">
+            {{ form.isAdmin.label(class="form-control-label") }}
+            {% if form.isAdmin.errors %}
+                {{ form.isAdmin(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.isAdmin.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.isAdmin(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="form-group">
+          {{ form.image.label() }}
+          {{ form.image(class="form-control-file") }}
+          {% if form.image.errors %}
+              {% for error in form.image.errors %}
+                  <span class="text-danger">{{ error }}</span></br>
+              {% endfor %}
+          {% endif %}
+      </div>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">{{submitButton}}</button>
+        {% if edit == "True" %}
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+        {% endif %}
+      </div>
+  </form>
+</div>
+{% endblock content %}
+
+{% block modal %}
+    <!-- Modal -->
+    {% if edit == "True" %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete {{attendee.firstName}} {{attendee.lastName}}?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="{{ url_for('deleteAttendee', attendeeID=attendee.attendeeID) }}" method="POST">
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endblock %}
+
